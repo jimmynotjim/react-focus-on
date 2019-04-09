@@ -29,10 +29,6 @@ const extractRef = (ref: React.RefObject<any> | HTMLElement): HTMLElement => (
 export class ReactFocusOn extends Component<ReactFocusOnProps> {
   private _undo?: () => void;
 
-  private lockProps = {
-    onClick: (e: React.MouseEvent) => e.preventDefault(),
-  };
-
   private onActivation = (node: HTMLElement) => {
     this._undo = hideOthers(
       [node, ...(this.props.shards || []).map(extractRef)],
@@ -100,8 +96,6 @@ export class ReactFocusOn extends Component<ReactFocusOnProps> {
             onDeactivation={this.onDeactivation}
             disabled={!(enabled && focusLock)}
             shards={shards}
-
-            lockProps={this.lockProps}
           >
             {children}
           </ReactFocusLock>
